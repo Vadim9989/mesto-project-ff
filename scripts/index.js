@@ -19,7 +19,7 @@ function createCard(cardData, deleteCard) {
   //установка значения из данных карточки
 
   cardImage.src = cardData.link;
-  cardImage.alt = cardData.name;
+  cardImage.alt = `Фотография места: ${cardData.name}`;
   cardTitle.textContent = cardData.name;
 
   //обработчик удаления карточки
