@@ -1,6 +1,10 @@
 // 1. Импорты модулей и стилей
 import "./pages/index.css"; // Импорт основного CSS-файла
-import { createCard, deleteCard } from "./components/card.js"; // Импорт функций и данных для карточек
+import {
+  createCard,
+  deleteCard,
+  handleLikeButtonClick,
+} from "./components/card.js"; // Импорт функций и данных для карточек
 import { initialCards } from "./components/cards.js"; // Импорт массива карточек
 import { openModal, closeModal } from "./components/modaL"; // Импорт функций для работы с попапами
 

@@ -12,6 +12,7 @@ function createCard(cardData, deleteCard) {
   const cardImage = cardElement.querySelector(".card__image");
   const cardTitle = cardElement.querySelector(".card__title");
   const deleteButton = cardElement.querySelector(".card__delete-button");
+  const likeButton = cardElement.querySelector(".card__like-button");
 
   //установка значения из данных карточки
 
@@ -24,6 +25,10 @@ function createCard(cardData, deleteCard) {
   deleteButton.addEventListener("click", () => {
     deleteCard(cardElement);
   });
+
+  //Обработчик лайка
+
+  likeButton.addEventListener("click", handleLikeButtonClick);
 
   return cardElement;
 }
@@ -45,4 +50,11 @@ function addCards() {
 
 addCards();
 
-export { createCard, deleteCard };
+//кнопка лайка
+
+function handleLikeButtonClick(evt) {
+  // Переключает состояние кнопки лайка (активный/неактивный)
+  evt.target.classList.toggle("card__like-button_is-active");
+}
+
+export { createCard, deleteCard, handleLikeButtonClick };
