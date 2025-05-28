@@ -73,3 +73,17 @@ editButton.addEventListener("click", () => {
 
 // Открытие попапа добавления карточки
 addButton.addEventListener("click", () => openModal(addCardPopup));
+
+//закрытие по клику на крестик и оверлей
+
+popups.forEach(function (popup) {
+  const closeButton = popup.querySelector(".popup__close");
+  closeButton.addEventListener("click", function () {
+    closeModal(popup);
+  });
+  popup.addEventListener("mousedown", function (evt) {
+    if (evt.target === evt.currentTarget) {
+      closeModal(popup);
+    }
+  });
+});
