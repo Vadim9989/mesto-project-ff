@@ -1,5 +1,6 @@
 // @todo: Функция создания карточки
 import { initialCards } from "./cards";
+import { CardImageClick } from "../index";
 
 const cardTemplate = document.querySelector("#card-template").content;
 const placeList = document.querySelector(".places__list");
@@ -30,6 +31,8 @@ function createCard(cardData, deleteCard) {
 
   likeButton.addEventListener("click", handleLikeButtonClick);
 
+  cardImage.addEventListener("click", () => CardImageClick(cardData));
+
   return cardElement;
 }
 
@@ -38,17 +41,6 @@ function createCard(cardData, deleteCard) {
 function deleteCard(cardElement) {
   cardElement.remove();
 }
-
-// @todo: Вывести карточки на страницу
-
-function addCards() {
-  initialCards.forEach((cardData) => {
-    const cardElement = createCard(cardData, deleteCard);
-    placeList.append(cardElement);
-  });
-}
-
-addCards();
 
 //кнопка лайка
 

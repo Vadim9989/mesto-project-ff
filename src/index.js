@@ -35,6 +35,13 @@ const placeLinkInput = addCardForm.querySelector('input[name="link"]');
 
 // 3. Функции-обработчики
 
+export function CardImageClick({ link, name }) {
+  imagePopupImage.src = link;
+  imagePopupImage.alt = name;
+  imagePopupCaption.textContent = name;
+  openModal(imagePopup);
+}
+
 // Обработчик отправки формы редактирования профиля
 function handleProfileFormSubmit(evt) {
   evt.preventDefault(); // Отменяем стандартную отправку формы
@@ -91,3 +98,14 @@ popups.forEach(function (popup) {
     }
   });
 });
+
+// @todo: Вывести карточки на страницу
+
+function addCards() {
+  initialCards.forEach((cardData) => {
+    const cardElement = createCard(cardData, deleteCard, CardImageClick);
+    placeList.append(cardElement);
+  });
+}
+
+addCards();
