@@ -35,7 +35,7 @@ const placeLinkInput = addCardForm.querySelector('input[name="link"]');
 
 // 3. Функции-обработчики
 
-export function openImagePopup({ link, name }) {
+function openImagePopup({ link, name }) {
   imagePopupImage.src = link;
   imagePopupImage.alt = name;
   imagePopupCaption.textContent = name;
@@ -53,25 +53,18 @@ function handleProfileFormSubmit(evt) {
 }
 
 // Обработчик отправки формы добавления новой карточки
-function handleAddCardSubmit(evt) {
-  evt.preventDefault(); // Отменяем стандартную отправку формы
-  // Получаем значения из инпутов
-  const name = placeNameInput.value;
-  const link = placeLinkInput.value;
-  // Создаём новую карточку с универсальными обработчиками
-  const newCard = createCard(
-    { name, link },
+function handleAddCardSubmit(e) {
+  e.preventDefault();
+  const cardData = {
+    name: placeNameInput.value,
+    link: placeLinkInput.value,
+  };
 
-    cardTemplate,
-    createCard,
-    deleteCard,
-    handleLikeButtonClick
+  placeList.prepend(
+    createCard(cardData, deleteCard, openImagePopup, handleLikeButtonClick)
   );
-  // Добавляем карточку в начало списка
-  placeList.prepend(newCard);
-  // Закрываем попап и очищаем форму
-  closeModal(addCardPopup);
   addCardForm.reset();
+  closeModal(addCardPopup);
 }
 
 // 4. Навешивание обработчиков событий
@@ -114,8 +107,7 @@ function addCards() {
       cardData,
       deleteCard,
       openImagePopup,
-      handleLikeButtonClick,
-      openImagePopup
+      handleLikeButtonClick
     );
     placeList.append(cardElement);
   });
