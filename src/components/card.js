@@ -1,11 +1,8 @@
 // @todo: Функция создания карточки
-import { initialCards } from "./cards";
-import { openImagePopup } from "../index";
 
 const cardTemplate = document.querySelector("#card-template").content;
-const placeList = document.querySelector(".places__list");
 
-function createCard(cardData, deleteCard) {
+function createCard(cardData, deleteCard, openImagePopup) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true); // клонируем шаблон карты
 
   //элементы внутри картф

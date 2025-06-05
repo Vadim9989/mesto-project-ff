@@ -59,7 +59,14 @@ function handleAddCardSubmit(evt) {
   const name = placeNameInput.value;
   const link = placeLinkInput.value;
   // Создаём новую карточку с универсальными обработчиками
-  const newCard = createCard({ name, link }, cardTemplate, deleteCard);
+  const newCard = createCard(
+    { name, link },
+
+    cardTemplate,
+    createCard,
+    deleteCard,
+    handleLikeButtonClick
+  );
   // Добавляем карточку в начало списка
   placeList.prepend(newCard);
   // Закрываем попап и очищаем форму
@@ -103,7 +110,13 @@ popups.forEach(function (popup) {
 
 function addCards() {
   initialCards.forEach((cardData) => {
-    const cardElement = createCard(cardData, deleteCard, openImagePopup);
+    const cardElement = createCard(
+      cardData,
+      deleteCard,
+      openImagePopup,
+      handleLikeButtonClick,
+      openImagePopup
+    );
     placeList.append(cardElement);
   });
 }
