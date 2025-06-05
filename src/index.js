@@ -16,9 +16,9 @@ const editProfilePopup = document.querySelector(".popup_type_edit");
 const editButton = document.querySelector(".profile__edit-button");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
-const formElement = document.querySelector('form[name="edit-profile"]');
-const nameInput = formElement.querySelector('input[name="name"]');
-const jobInput = formElement.querySelector('input[name="description"]');
+const fromEditProfile = document.querySelector('form[name="edit-profile"]');
+const nameInput = fromEditProfile.querySelector('input[name="name"]');
+const jobInput = fromEditProfile.querySelector('input[name="description"]');
 
 // image popup
 const imagePopup = document.querySelector(".popup_type_image");
@@ -35,7 +35,7 @@ const placeLinkInput = addCardForm.querySelector('input[name="link"]');
 
 // 3. Функции-обработчики
 
-export function CardImageClick({ link, name }) {
+export function openImagePopup({ link, name }) {
   imagePopupImage.src = link;
   imagePopupImage.alt = name;
   imagePopupCaption.textContent = name;
@@ -70,7 +70,7 @@ function handleAddCardSubmit(evt) {
 // 4. Навешивание обработчиков событий
 
 // Отправка формы редактирования профиля
-formElement.addEventListener("submit", handleProfileFormSubmit);
+fromEditProfile.addEventListener("submit", handleProfileFormSubmit);
 // Отправка формы добавления карточки
 addCardForm.addEventListener("submit", handleAddCardSubmit);
 
@@ -103,7 +103,7 @@ popups.forEach(function (popup) {
 
 function addCards() {
   initialCards.forEach((cardData) => {
-    const cardElement = createCard(cardData, deleteCard, CardImageClick);
+    const cardElement = createCard(cardData, deleteCard, openImagePopup);
     placeList.append(cardElement);
   });
 }

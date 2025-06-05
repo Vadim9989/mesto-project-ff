@@ -1,6 +1,6 @@
 // @todo: Функция создания карточки
 import { initialCards } from "./cards";
-import { CardImageClick } from "../index";
+import { openImagePopup } from "../index";
 
 const cardTemplate = document.querySelector("#card-template").content;
 const placeList = document.querySelector(".places__list");
