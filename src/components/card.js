@@ -2,7 +2,12 @@
 
 const cardTemplate = document.querySelector("#card-template").content;
 
-function createCard(cardData, deleteCard, openImagePopup) {
+function createCard(
+  cardData,
+  deleteCard,
+  openImagePopup,
+  handleLikeButtonClick
+) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true); // клонируем шаблон карты
 
   //элементы внутри картф
