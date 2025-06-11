@@ -7,6 +7,7 @@ import {
 } from "./components/card.js"; // Импорт функций и данных для карточек
 import { initialCards } from "./components/cards.js"; // Импорт массива карточек
 import { openModal, closeModal } from "./components/modaL"; // Импорт функций для работы с попапами
+import { clearValidation, enableValidation } from "./components/validate"; //bvgjhn aeyrwbq dfkblfwbb
 
 const cardTemplate = document.querySelector("#card-template").content;
 const placeList = document.querySelector(".places__list");
@@ -32,6 +33,16 @@ const addCardPopup = document.querySelector(".popup_type_new-card");
 const addCardForm = document.querySelector('form[name="new-place"]');
 const placeNameInput = addCardForm.querySelector('input[name="place-name"]');
 const placeLinkInput = addCardForm.querySelector('input[name="link"]');
+
+// Конфиг валидации форм
+const validationConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
 
 // 3. Функции-обработчики
 
@@ -79,11 +90,17 @@ editButton.addEventListener("click", () => {
   // Подставляем актуальные значения в инпуты
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileDescription.textContent;
+
+  clearValidation(fromEditProfile, validationConfig);
   openModal(editProfilePopup);
 });
 
 // Открытие попапа добавления карточки
-addButton.addEventListener("click", () => openModal(addCardPopup));
+addButton.addEventListener("click", () => {
+  addCardForm.reset(); ///очищение формы
+  clearValidation(addCardForm, validationConfig);
+  openModal(addCardPopup);
+});
 
 //закрытие по клику на крестик и оверлей
 
@@ -114,3 +131,4 @@ function addCards() {
 }
 
 addCards();
+enableValidation(validationConfig); // Инициализация валидации
