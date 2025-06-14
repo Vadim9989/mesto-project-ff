@@ -5,7 +5,7 @@ import {
   deleteCard,
   handleLikeButtonClick,
 } from "./components/card.js"; // Импорт функций и данных для карточек
-import { initialCards } from "./components/cards.js"; // Импорт массива карточек
+
 import { openModal, closeModal } from "./components/modal"; // Импорт функций для работы с попапами
 import { clearValidation, enableValidation } from "./components/validate"; //bvgjhn aeyrwbq dfkblfwbb
 import {
@@ -96,9 +96,6 @@ function handleDeleteConfirm() {
       cardToDelete = null;
     });
 }
-
-// Добавить обработчик события для кнопки подтверждения
-deleteCardButton.addEventListener("click", handleDeleteConfirm);
 
 function handleAvatarFormSubmit(evt) {
   evt.preventDefault();

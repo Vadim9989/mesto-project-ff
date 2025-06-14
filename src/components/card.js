@@ -2,11 +2,20 @@ import { removeCard, likeCard, unlikeCard } from "./api.js";
 
 const cardTemplate = document.querySelector("#card-template").content;
 
+let handleDeleteButtonClick; // Будет определена позже
+
+// Добавьте эту функцию в конец файла, перед экспортом
+export function setDeleteButtonClickHandler(handler) {
+  handleDeleteButtonClick = handler;
+}
+
 function createCard(
   cardData,
+  cardTemplate,
   deleteCard,
+  handleLikeButtonClick,
   openImagePopup,
-  handleLikeButtonClick
+  handleDeleteButtonClick
 ) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true); // клонируем шаблон карты
 
@@ -46,7 +55,9 @@ function createCard(
   }
 
   // Добавить обработчик события для кнопки подтверждения
-  deleteButton.addEventListener("click", handleDeleteConfirm);
+  deleteButton.addEventListener("click", () =>
+    handleDeleteButtonClick(cardElement)
+  );
   //Обработчик лайка
 
   likeButton.addEventListener("click", (evt) => {
@@ -60,9 +71,8 @@ function createCard(
 
 // Функция удаления карточки (теперь просто вызывает обработчик)
 function deleteCard(cardElement) {
-  // Функция теперь просто открывает попап подтверждения
-  // Логика удаления перенесена в handleDeleteConfirm
-  handleDeleteButtonClick(cardElement);
+  // Просто удаляем элемент из DOM
+  cardElement.remove();
 }
 //кнопка лайка
 
@@ -84,6 +94,11 @@ function handleLikeButtonClick(evt, cardId, likeCount) {
     .catch((err) => {
       console.error(`Ошибка при обновлении лайка: ${err}`);
     });
+}
+
+//
+export function setDeleteButtonClickHandler(handler) {
+  handleDeleteButtonClick = handler;
 }
 
 export { createCard, deleteCard, handleLikeButtonClick };
