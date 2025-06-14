@@ -45,12 +45,8 @@ function createCard(
     likeButton.classList.add("card__like-button_is-active");
   }
 
-  //обработчик удаления карточки
-
-  deleteButton.addEventListener("click", () => {
-    deleteCard(cardElement);
-  });
-
+  // Добавить обработчик события для кнопки подтверждения
+  deleteButton.addEventListener("click", handleDeleteConfirm);
   //Обработчик лайка
 
   likeButton.addEventListener("click", (evt) => {
@@ -63,11 +59,10 @@ function createCard(
 }
 
 // Функция удаления карточки (теперь просто вызывает обработчик)
-function deleteCard(cardElement, handleDeleteButtonClick) {
-  // Теперь используем handleDeleteButtonClick как параметр
-  if (typeof handleDeleteButtonClick === "function") {
-    handleDeleteButtonClick(cardElement);
-  }
+function deleteCard(cardElement) {
+  // Функция теперь просто открывает попап подтверждения
+  // Логика удаления перенесена в handleDeleteConfirm
+  handleDeleteButtonClick(cardElement);
 }
 //кнопка лайка
 

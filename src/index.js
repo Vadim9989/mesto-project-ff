@@ -53,6 +53,7 @@ const addCardPopup = document.querySelector(".popup_type_new-card");
 const addCardForm = document.querySelector('form[name="new-place"]');
 const placeNameInput = addCardForm.querySelector('input[name="place-name"]');
 const placeLinkInput = addCardForm.querySelector('input[name="link"]');
+const deleteCardButton = deleteCardPopup.querySelector(".popup__button_delete");
 
 // Конфиг валидации форм
 const validationConfig = {
@@ -65,6 +66,39 @@ const validationConfig = {
 };
 
 // 3. Функции-обработчики
+
+// Обработчик подтверждения удаления карточки
+function handleDeleteConfirm() {
+  if (!cardToDelete) return;
+
+  // Получаем ID карточки из data-атрибута
+  const cardId = cardToDelete.dataset.cardId;
+
+  // Меняем текст кнопки на время удаления
+  const originalButtonText = deleteCardButton.textContent;
+  deleteCardButton.textContent = "Удаление...";
+
+  // Отправляем запрос на удаление
+  removeCard(cardId)
+    .then(() => {
+      // Удаляем карточку из DOM
+      cardToDelete.remove();
+      // Закрываем попап
+      closeModal(deleteCardPopup);
+    })
+    .catch((err) => {
+      console.error(`Ошибка при удалении карточки: ${err}`);
+    })
+    .finally(() => {
+      // Возвращаем исходный текст кнопки
+      deleteCardButton.textContent = originalButtonText;
+      // Очищаем переменную
+      cardToDelete = null;
+    });
+}
+
+// Добавить обработчик события для кнопки подтверждения
+deleteCardButton.addEventListener("click", handleDeleteConfirm);
 
 function handleAvatarFormSubmit(evt) {
   evt.preventDefault();
@@ -277,6 +311,7 @@ function renderCard(cards) {
 }
 
 // Загрузка данных пользователя и карточек при инициализации страницы
+
 Promise.all([getUserInfo(), getInitialCards()])
   .then(([userData, cards]) => {
     // Обновляем данные профиля

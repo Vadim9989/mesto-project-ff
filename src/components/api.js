@@ -6,7 +6,7 @@ const config = {
   },
 };
 
-// Проверка ответа от сервераAdd commentMore actions
+// Проверка ответа от сервера
 const checkResponse = (res) => {
   if (res.ok) {
     return res.json();
@@ -80,7 +80,7 @@ export const likeCard = (cardId) => {
   }).then(checkResponse);
 };
 
-// Убрать лайк с карточкиAdd commentMore actions
+// Убрать лайк с карточки
 export const unlikeCard = (cardId) => {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "DELETE",
