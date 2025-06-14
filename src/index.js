@@ -16,6 +16,7 @@ import {
   updateUserAvatar,
   removeCard,
 } from "./components/api.js"; // Импорт функций для получения данных профиля
+import { setDeleteButtonClickHandler } from "./components/card.js";
 
 const cardTemplate = document.querySelector("#card-template").content;
 const placesList = document.querySelector(".places__list");
@@ -66,6 +67,8 @@ const validationConfig = {
 };
 
 // 3. Функции-обработчики
+// Устанавливаем обработчик для удаления карточек
+setDeleteButtonClickHandler(handleDeleteButtonClick);
 
 // Обработчик подтверждения удаления карточки
 function handleDeleteConfirm() {

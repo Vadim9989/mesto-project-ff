@@ -4,11 +4,6 @@ const cardTemplate = document.querySelector("#card-template").content;
 
 let handleDeleteButtonClick; // Будет определена позже
 
-// Добавьте эту функцию в конец файла, перед экспортом
-export function setDeleteButtonClickHandler(handler) {
-  handleDeleteButtonClick = handler;
-}
-
 function createCard(
   cardData,
   cardTemplate,
@@ -96,7 +91,6 @@ function handleLikeButtonClick(evt, cardId, likeCount) {
     });
 }
 
-//
 export function setDeleteButtonClickHandler(handler) {
   handleDeleteButtonClick = handler;
 }
