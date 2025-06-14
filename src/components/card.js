@@ -50,9 +50,7 @@ function createCard(
   }
 
   // Добавить обработчик события для кнопки подтверждения
-  deleteButton.addEventListener("click", () =>
-    handleDeleteButtonClick(cardElement)
-  );
+  deleteButton.addEventListener("click", () => deleteCard(cardElement));
   //Обработчик лайка
 
   likeButton.addEventListener("click", (evt) => {
@@ -66,8 +64,18 @@ function createCard(
 
 // Функция удаления карточки (теперь просто вызывает обработчик)
 function deleteCard(cardElement) {
-  // Просто удаляем элемент из DOM
-  cardElement.remove();
+  // Получаем ID карточки из data-атрибута
+  const cardId = cardElement.dataset.cardId;
+
+  // Отправляем запрос на удаление
+  removeCard(cardId)
+    .then(() => {
+      // Удаляем карточку из DOM
+      cardElement.remove();
+    })
+    .catch((err) => {
+      console.error(`Ошибка при удалении карточки: ${err}`);
+    });
 }
 //кнопка лайка
 

@@ -16,7 +16,6 @@ import {
   updateUserAvatar,
   removeCard,
 } from "./components/api.js"; // Импорт функций для получения данных профиля
-import { setDeleteButtonClickHandler } from "./components/card.js";
 
 const cardTemplate = document.querySelector("#card-template").content;
 const placesList = document.querySelector(".places__list");
@@ -67,38 +66,6 @@ const validationConfig = {
 };
 
 // 3. Функции-обработчики
-// Устанавливаем обработчик для удаления карточек
-setDeleteButtonClickHandler(handleDeleteButtonClick);
-
-// Обработчик подтверждения удаления карточки
-function handleDeleteConfirm() {
-  if (!cardToDelete) return;
-
-  // Получаем ID карточки из data-атрибута
-  const cardId = cardToDelete.dataset.cardId;
-
-  // Меняем текст кнопки на время удаления
-  const originalButtonText = deleteCardButton.textContent;
-  deleteCardButton.textContent = "Удаление...";
-
-  // Отправляем запрос на удаление
-  removeCard(cardId)
-    .then(() => {
-      // Удаляем карточку из DOM
-      cardToDelete.remove();
-      // Закрываем попап
-      closeModal(deleteCardPopup);
-    })
-    .catch((err) => {
-      console.error(`Ошибка при удалении карточки: ${err}`);
-    })
-    .finally(() => {
-      // Возвращаем исходный текст кнопки
-      deleteCardButton.textContent = originalButtonText;
-      // Очищаем переменную
-      cardToDelete = null;
-    });
-}
 
 function handleAvatarFormSubmit(evt) {
   evt.preventDefault();
@@ -239,12 +206,6 @@ function loadUserInfo() {
     });
 }
 
-// Функция для открытия попапа удаления карточки
-function handleDeleteButtonClick(cardElement) {
-  cardToDelete = cardElement; // Сохраняем ссылку на карточку, которую нужно удалить
-  openModal(deleteCardPopup);
-}
-
 // 4. Навешивание обработчиков событий
 
 // Отправка формы обновления аватараAdd commentMore actions
@@ -303,8 +264,7 @@ function renderCard(cards) {
       cardTemplate,
       deleteCard,
       handleLikeButtonClick,
-      openImagePopup,
-      handleDeleteButtonClick
+      openImagePopup
     );
     placesList.append(cardElement);
   });

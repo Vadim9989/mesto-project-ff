@@ -10,6 +10,7 @@
   opacity: 0;
   transition: opacity 0.3s ease;
   cursor: pointer;
+  position: relative;
 }
 
 .profile__image:hover .profile__image-edit-button {
