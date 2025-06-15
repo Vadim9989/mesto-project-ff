@@ -1,4 +1,5 @@
 import { removeCard, likeCard, unlikeCard } from "./api.js";
+import { getCurrentUserId } from "../index.js";
 
 const cardTemplate = document.querySelector("#card-template").content;
 
@@ -35,7 +36,7 @@ function createCard(
   likeCount.textContent = cardData.likes.length;
 
   // Получаем ID текущего пользователя
-  const userId = document.querySelector(".profile__title").dataset.userId;
+  const userId = getCurrentUserId();
 
   // Проверяем, является ли текущий пользователь владельцем карточки
   if (cardData.owner && cardData.owner._id !== userId) {

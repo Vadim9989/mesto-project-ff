@@ -36,6 +36,8 @@ const fromEditProfile = document.querySelector('form[name="edit-profile"]');
 const nameInput = fromEditProfile.querySelector('input[name="name"]');
 const jobInput = fromEditProfile.querySelector('input[name="description"]');
 
+let currentUserId = null;
+
 // image popup
 const imagePopup = document.querySelector(".popup_type_image");
 const imagePopupImage = imagePopup.querySelector(".popup__image");
@@ -246,16 +248,16 @@ function renderCard(cards) {
     placesList.append(cardElement);
   });
 }
-
+export const getCurrentUserId = () => currentUserId;
 // Загрузка данных пользователя и карточек при инициализации страницы
 
 Promise.all([getUserInfo(), getInitialCards()])
   .then(([userData, cards]) => {
     // Обновляем данные профиля
+    currentUserId = userData._id; // Сохраняем ID пользователя
     profileTitle.textContent = userData.name;
     profileDescription.textContent = userData.about;
     profileImage.style.backgroundImage = `url(${userData.avatar})`;
-    profileTitle.dataset.userId = userData._id; // Сохраняем ID пользователя
 
     // Отрисовываем карточки
     renderCard(cards);
