@@ -62,15 +62,21 @@ function setEventListeners(formElement, config) {
   });
 }
 
-// Функция переключения состояния кнопки
-function toggleButtonState(inputList, buttonElement, config) {
-  if (hasInvalidInput(inputList)) {
+// Функция для управления состоянием кнопки
+function setButtonDisabled(buttonElement, isDisabled, config) {
+  if (isDisabled) {
     buttonElement.classList.add(config.inactiveButtonClass);
     buttonElement.disabled = true;
   } else {
     buttonElement.classList.remove(config.inactiveButtonClass);
     buttonElement.disabled = false;
   }
+}
+
+// Функция переключения состояния кнопки
+function toggleButtonState(inputList, buttonElement, config) {
+  const isInvalid = hasInvalidInput(inputList);
+  setButtonDisabled(buttonElement, isInvalid, config);
 }
 
 // Функция очистки ошибок валидации
@@ -85,8 +91,7 @@ function clearValidation(formElement, config) {
   });
 
   // Делаем кнопку неактивной при очистке формы
-  buttonElement.classList.add(config.inactiveButtonClass);
-  buttonElement.disabled = true;
+  setButtonDisabled(buttonElement, true, config);
 }
 
 // Функция включения валидации
