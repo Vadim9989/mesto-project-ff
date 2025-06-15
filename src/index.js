@@ -183,29 +183,6 @@ function handleAddCardSubmit(evt) {
     });
 }
 
-// Функция загрузки информации о пользователе
-function loadUserInfo() {
-  getUserInfo()
-    .then((userData) => {
-      // Обновляем данные профиля на странице
-      profileTitle.textContent = userData.name;
-      profileDescription.textContent = userData.about;
-
-      // Если у пользователя есть аватар, обновляем его
-      const profileImage = document.querySelector(".profile__image");
-      if (userData.avatar) {
-        profileImage.style.backgroundImage = `url(${userData.avatar})`;
-      }
-
-      // Сохраняем ID пользователя (может пригодиться позже)
-      // Можно добавить как data-атрибут или в переменную
-      profileTitle.dataset.userId = userData._id;
-    })
-    .catch((err) => {
-      console.error(`Ошибка при загрузке информации о пользователе: ${err}`);
-    });
-}
-
 // 4. Навешивание обработчиков событий
 
 // Отправка формы обновления аватараAdd commentMore actions
@@ -277,15 +254,8 @@ Promise.all([getUserInfo(), getInitialCards()])
     // Обновляем данные профиля
     profileTitle.textContent = userData.name;
     profileDescription.textContent = userData.about;
-
-    // Если у пользователя есть аватар, обновляем его
-    const profileImage = document.querySelector(".profile__image");
-    if (userData.avatar) {
-      profileImage.style.backgroundImage = `url(${userData.avatar})`;
-    }
-
-    // Сохраняем ID пользователя
-    profileTitle.dataset.userId = userData._id;
+    profileImage.style.backgroundImage = `url(${userData.avatar})`;
+    profileTitle.dataset.userId = userData._id; // Сохраняем ID пользователя
 
     // Отрисовываем карточки
     renderCard(cards);
