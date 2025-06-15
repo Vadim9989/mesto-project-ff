@@ -165,8 +165,7 @@ function handleAddCardSubmit(evt) {
         cardTemplate,
         deleteCard,
         handleLikeButtonClick,
-        openImagePopup,
-        handleDeleteButtonClick
+        openImagePopup
       );
 
       // Добавляем карточку в начало списка
