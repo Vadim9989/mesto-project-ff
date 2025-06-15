@@ -42,8 +42,8 @@ function createCard(
     deleteCard(cardData._id, cardElement)
   );
 
-  likeButton.addEventListener("click", (evt) => {
-    handleLikeButtonClick(evt, cardData._id, likeCount);
+  likeButton.addEventListener("click", () => {
+    handleLikeButtonClick(cardData._id, likeButton, likeCount);
   });
 
   cardImage.addEventListener("click", () => openImagePopup(cardData));
@@ -63,8 +63,7 @@ function deleteCard(cardId, cardElement) {
 }
 //кнопка лайка
 
-function handleLikeButtonClick(evt, cardId, likeCount) {
-  const likeButton = evt.target;
+function handleLikeButtonClick(cardId, likeButton, likeCount) {
   const isLiked = likeButton.classList.contains("card__like-button_is-active");
 
   // Выбираем подходящий метод в зависимости от текущего состояния
