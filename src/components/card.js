@@ -13,12 +13,7 @@ function createCard(
   openImagePopup,
   handleDeleteButtonClick
 ) {
-  const cardElement = cardTemplate.querySelector(".card").cloneNode(true); // клонируем шаблон карты
-
-  // Сохраняем ID карточки в data-атрибуте
-  cardElement.dataset.cardId = cardData._id;
-
-  //элементы внутри картф
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
 
   const cardImage = cardElement.querySelector(".card__image");
   const cardTitle = cardElement.querySelector(".card__title");
@@ -26,33 +21,26 @@ function createCard(
   const likeButton = cardElement.querySelector(".card__like-button");
   const likeCount = cardElement.querySelector(".card__like-count");
 
-  //установка значения из данных карточки
-
   cardImage.src = cardData.link;
   cardImage.alt = `Фотография места: ${cardData.name}`;
   cardTitle.textContent = cardData.name;
-
-  // Устанавливаем количество лайковAdd commentMore actions
   likeCount.textContent = cardData.likes.length;
 
-  // Получаем ID текущего пользователя
   const userId = getCurrentUserId();
 
-  // Проверяем, является ли текущий пользователь владельцем карточки
   if (cardData.owner && cardData.owner._id !== userId) {
-    // Если не владелец - скрываем кнопку удаления
     deleteButton.style.display = "none";
   }
 
-  // Проверяем, лайкнул ли текущий пользователь карточку
   const isLiked = cardData.likes.some((user) => user._id === userId);
   if (isLiked) {
     likeButton.classList.add("card__like-button_is-active");
   }
 
-  // Добавить обработчик события для кнопки подтверждения
-  deleteButton.addEventListener("click", () => deleteCard(cardElement));
-  //Обработчик лайка
+  // Передаем ID карточки напрямую в обработчик
+  deleteButton.addEventListener("click", () =>
+    deleteCard(cardData._id, cardElement)
+  );
 
   likeButton.addEventListener("click", (evt) => {
     handleLikeButtonClick(evt, cardData._id, likeCount);
@@ -64,14 +52,9 @@ function createCard(
 }
 
 // Функция удаления карточки (теперь просто вызывает обработчик)
-function deleteCard(cardElement) {
-  // Получаем ID карточки из data-атрибута
-  const cardId = cardElement.dataset.cardId;
-
-  // Отправляем запрос на удаление
+function deleteCard(cardId, cardElement) {
   removeCard(cardId)
     .then(() => {
-      // Удаляем карточку из DOM
       cardElement.remove();
     })
     .catch((err) => {
